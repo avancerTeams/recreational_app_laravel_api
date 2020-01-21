@@ -30,7 +30,19 @@ class RecreationCrudTest extends TestCase
     /** @test  */
     public function index__recreation_are_listed_correctly()
     {
-        //
+        // route('recreations.index') === "http://localhost/api/v1/recreations"
+        $response = $this
+            ->getJson(route('recreations.index'), [])
+            ->assertStatus(200)
+            ;
+        /**
+         * assertResource is a macro created with Tests\CreatesApplication.php
+         * 
+         * Test that exact Recreation resource attributes json structure 
+         * is rendered when the index URL is accessed.
+         * This advanced test for $this->assertJsonFragment($response);
+         */
+        $response->assertResource(RecreationCollection::collection($this->recreations));
     }
 
     public

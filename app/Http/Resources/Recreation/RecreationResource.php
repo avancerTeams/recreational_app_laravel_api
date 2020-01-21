@@ -17,9 +17,9 @@ class RecreationResource extends JsonResource
         return [
             'name'        => $this->name,
             'address'     => $this->address,
-            'locationId'  => $this->location_id,
-            'categoryId'  => $this->category_id,
-            'active'      => $this->isActive(),
+            'locationId'  => (integer) $this->location_id,
+            'categoryId'  => (integer) $this->category_id,
+            'active'      => (boolean) $this->isActive(),
             'openingHour' => $this->opening_hour,
             'closingHour' => $this->closing_hour,
             'url' => [

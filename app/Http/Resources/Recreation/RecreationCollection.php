@@ -16,10 +16,10 @@ class RecreationCollection extends JsonResource
     public function toArray($request)
     {
         return [
-            'name' => $this->name,
-            'address' => $this->address,
-            'locationId' => $this->location_id,
-            'categoryId' => $this->category_id,
+            'name'       => $this->name,
+            'address'    => $this->address,
+            'locationId' => (integer) $this->location_id,
+            'categoryId' => (integer) $this->category_id,
             'url' => [
                 'self' => route('recreations.show', $this),
                 'path' => $request->url(),

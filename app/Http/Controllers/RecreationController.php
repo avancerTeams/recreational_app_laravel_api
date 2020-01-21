@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\RecreationRequest;
 use App\Http\Resources\Recreation\RecreationCollection;
 use App\Http\Resources\Recreation\RecreationResource;
 use App\Recreation;
@@ -9,6 +10,11 @@ use Illuminate\Http\Request;
 
 class RecreationController extends Controller
 {
+    public function __construct() 
+    {
+        // $this->middleware('admin')->except('index', 'show');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -27,9 +33,15 @@ class RecreationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(RecreationRequest $request)
     {
-        //
+        // Double check by policy if hasCreateAccess
+        
+        $recreation = Recreation::create($request->all());
+
+        $resource = new RecreationResource($recreation);
+
+        return response()->json($resource, 201);
     }
 
     /**
@@ -50,9 +62,15 @@ class RecreationController extends Controller
      * @param  \App\Recreation  $recreation
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Recreation $recreation)
+    public function update(RecreationRequest $request, Recreation $recreation)
     {
-        //
+        // Double check by policy if hasUpdateAccess
+        
+        $recreation->update($request->all());
+
+        $resource = new RecreationResource($recreation);
+
+        return response()->json($resource, 200);
     }
 
     /**
@@ -63,6 +81,10 @@ class RecreationController extends Controller
      */
     public function destroy(Recreation $recreation)
     {
-        //
+        // Double check by policy if hasUpdateAccess
+
+        $recreation->delete();
+
+        return response()->json(null, 204);//Response::HTTP_NO_CONTENT
     }
 }

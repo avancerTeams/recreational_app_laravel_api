@@ -24,6 +24,7 @@ class CreateRecreationsTable extends Migration
             $table->string('closing_hour');
 
             $table->timestamps();
+            $table->unique(['name','address']); // Composite Key
             $table->foreign('location_id')->references('id')->on('locations');
             $table->foreign('category_id')->references('id')->on('categories');
         });

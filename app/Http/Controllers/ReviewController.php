@@ -7,6 +7,7 @@ use App\Http\Resources\Review\ReviewCollection;
 use App\Http\Resources\Review\ReviewResource;
 use App\Recreation;
 use App\Review;
+use Auth;
 use Illuminate\Http\Request;
 
 class ReviewController extends Controller
@@ -29,7 +30,7 @@ class ReviewController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Review $review)
+    public function store(ReviewRequest $request, Review $review)
     {
         // Double check by policy if hasCreateAccess
         
@@ -58,7 +59,7 @@ class ReviewController extends Controller
      * @param  \App\Review $review
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Review $review)
+    public function update(ReviewRequest $request, Review $review)
     {
         // Double check by policy if hasUpdateAccess
         

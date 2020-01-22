@@ -23,7 +23,7 @@ class ReviewResource extends JsonResource
             'author'       => $this->user->name,// new UserResource($this->user)
             'recreation'   => new RecreationResource($this->recreation),
             'url' => [
-                'self' => route('reviews.show', [$this->recreation, $this]),
+                'self' => route('reviews.show', $this),
                 'index' => route('reviews.index', $this->recreation),
                 // 'path' => $request->url(),
             ]

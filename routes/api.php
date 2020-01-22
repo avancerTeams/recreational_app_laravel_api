@@ -19,4 +19,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::group(['prefix' => '/v1'], function ($router) {
 	Route::apiResource('recreations', 'RecreationController');
+	Route::apiResource('reviews', 'ReviewController')->except('index');
+	Route::get('recreations/{recreation}/reviews', 'ReviewController@index')->name('reviews.index');
 });

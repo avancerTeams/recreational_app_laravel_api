@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUsersTable extends Migration
+class CreateRecreationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,20 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('recreations', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
+            $table->string('address');
             $table->bigInteger('location_id')->unsigned();
-            $table->boolean('role')->default(0);
+            $table->bigInteger('category_id')->unsigned();
+            $table->boolean('active')->default(0);
+            $table->string('opening_hour');
+            $table->string('closing_hour');
 
             $table->timestamps();
+            $table->unique(['name','address']); // Composite Key
             $table->foreign('location_id')->references('id')->on('locations');
+            $table->foreign('category_id')->references('id')->on('categories');
         });
     }
 
@@ -35,6 +37,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('recreations');
     }
 }

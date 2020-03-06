@@ -25,7 +25,7 @@ class RecreationResource extends JsonResource
             'url' => [
                 'self' => route('recreations.show', $this),
                 'index' => route('recreations.index'),
-                // 'path' => $request->url(),
+                'reviews' => route('reviews.index', $this),
             ]
         ];
     }

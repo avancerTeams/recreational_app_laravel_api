@@ -18,7 +18,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::group(['prefix' => '/v1'], function ($router) {
-	Route::apiResource('recreations', 'RecreationController');
+	Route::apiResource('locations', 'LocationController');
+	Route::apiResource('categories', 'CategoryController');
+	Route::apiResource('recreations', 'RecreationController')->except('location', 'category');
 	Route::apiResource('reviews', 'ReviewController')->except('index');
+	Route::get('locations/{location}/recreations', 'RecreationController@by_location')->name('recreations.location');
+	Route::get('categories/{category}/recreations', 'RecreationController@by_category')->name('recreations.category');
 	Route::get('recreations/{recreation}/reviews', 'ReviewController@index')->name('reviews.index');
 });

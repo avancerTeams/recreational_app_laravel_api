@@ -6,6 +6,8 @@ use App\Http\Requests\RecreationRequest;
 use App\Http\Resources\Recreation\RecreationCollection;
 use App\Http\Resources\Recreation\RecreationResource;
 use App\Recreation;
+use App\Location;
+use App\Category;
 use Illuminate\Http\Request;
 
 class RecreationController extends Controller
@@ -86,5 +88,23 @@ class RecreationController extends Controller
         $recreation->delete();
 
         return response()->json(null, 204);//Response::HTTP_NO_CONTENT
+    }
+
+    public function by_location(Location $location)
+    {
+        // Listing recreations by location
+
+        $recreations = Recreation::where('location_id', $location->id)->paginate(5);
+
+        return RecreationCollection::collection($recreations);
+    }
+
+    public function by_category(Category $category)
+    {
+        // Listing recreations by category
+
+        $recreations = Recreation::where('category_id', $category->id)->paginate(5);
+
+        return RecreationCollection::collection($recreations);
     }
 }

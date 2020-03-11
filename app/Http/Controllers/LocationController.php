@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LocationRequest;
+use App\Http\Resources\Location\LocationCollection;
+use App\Http\Resources\Location\LocationResource;
 use App\Location;
 use Illuminate\Http\Request;
 
@@ -14,7 +17,9 @@ class LocationController extends Controller
      */
     public function index()
     {
-        //
+        $locations = Location::orderBy('name')->paginate(5);
+
+        return LocationCollection::collection($locations);
     }
 
     /**
@@ -33,9 +38,13 @@ class LocationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(LocationRequest $request)
     {
-        //
+        $location = Location::create($request->all());
+
+        $resource = new LocationResource($location);
+
+        return response()->json($resource, 201);
     }
 
     /**
@@ -46,7 +55,7 @@ class LocationController extends Controller
      */
     public function show(Location $location)
     {
-        //
+        return new LocationResource($location);
     }
 
     /**
@@ -80,6 +89,8 @@ class LocationController extends Controller
      */
     public function destroy(Location $location)
     {
-        //
+        $location->delete();
+
+        return response()->json(null, 204);//Response::HTTP_NO_CONTENT
     }
 }

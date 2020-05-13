@@ -1,4 +1,4 @@
-![Laravel](https://github.com/avancerTeams/recreational_app_laravel_api/workflows/Laravel/badge.svg)
+![Laravel](https://github.com/avancerTeams/recreational_app_laravel_api/workflows/Laravel/badge.svg)               ![PHP Composer](https://github.com/avancerTeams/recreational_app_laravel_api/workflows/PHP%20Composer/badge.svg)
 
 
 <p align="center"><img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400"></p>
